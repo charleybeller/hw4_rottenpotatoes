@@ -66,11 +66,11 @@ class MoviesController < ApplicationController
 
   def find_similar
     @seed_movie = Movie.find(params[:id])
-    if @seed_movie.director != nil
+    if @seed_movie.director and @seed_movie.director.length >= 1
       @movies = Movie.find_similar(@seed_movie.director)
     else
-      flash[:notice] = "'#{@seed_movie.title}'has no director info"
-      redirect_to movies_path
+      flash[:notice] = "'#{@seed_movie.title}' has no director info"
+      redirect_to :action => "index", :controller => "movies"
     end
   end
 end
